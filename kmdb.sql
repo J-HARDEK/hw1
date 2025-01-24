@@ -112,13 +112,21 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+DROP TABLE IF EXISTS students;
 
 -- Create new tables, according to your domain model
 -- TODO!
-
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+CREATE TABLE students (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  first_name TEXT,
+  last_name TEXT,
+  email TEXT
+);
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -127,6 +135,12 @@
 
 -- The SQL statement for the movies output
 -- TODO!
+--Into the terminal:
+--Type: sqlite3 
+--Press Enter
+--Then Type: .read kmdb.sql 
+--Press Enter
+--Ta-Da!
 
 -- Prints a header for the cast output
 .print ""
