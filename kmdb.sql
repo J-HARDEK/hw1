@@ -112,25 +112,77 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
-DROP TABLE IF EXISTS students;
-
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS cast;
+DROP TABLE IF EXISTS studio;
 -- Create new tables, according to your domain model
 -- TODO!
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
-CREATE TABLE students (
+--______MOVIES TABLE_______
+CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  first_name TEXT,
-  last_name TEXT,
-  email TEXT
+  title TEXT,
+  year_released INTEGER,
+  mpaa_rating TEXT,
+  studio TEXT
 );
+INSERT INTO movies (
+    title,
+    year_released,
+    mpaa_rating,
+    studio
+) VALUES (
+    "Batman Begins",
+    "2005",
+    "PG-13",
+    "Warner Bros"
+), ("The Dark Knight",
+    "2008",
+    "PG-13",
+    "Warner Bros"
+), ("The Dark Knight Rises",
+    "2013",
+    "PG-13",
+    "Warner Bros"
+);
+CREATE TABLE movies (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  year_released INTEGER,
+  mpaa_rating TEXT,
+  studio TEXT
+);
+
+--______CAST TABLE_______
+CREATE TABLE cast (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  character_name TEXT,
+  actor_real_name TEXT
+);
+INSERT INTO cast (
+    character_name,
+    actor_real_name,
+) VALUES 
+    ("Bruce Wayne", "Christian Bale"),
+    ("Alfred", "Michael Caine"),
+    ("Ra's Al Ghul", "Liam Neeson"),
+    ("Rachel Dawes", "Katie Holmes"),
+    ("Rachel Dawes", "Maggie Gyllenhaal"),
+    --??? How to differentiate the above? Movie_ID?
+    ("Commissioner Gordon", "Gary Oldman"),
+    ("Joker", "Heath Ledger"),
+    ("Bane", "Tom Hardy"),
+    ("John Blaake", "Joseph Gordon-Levitt"),
+    ("Selina Kyle", "Anne Hathaway"
+); 
 
 
 -- Prints a header for the movies output
 .print "Movies"
-.print "======"
+SELECT title, year_released,mpaa_rating, studio FROM movies;
 .print ""
 
 -- The SQL statement for the movies output
