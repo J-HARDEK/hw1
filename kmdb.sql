@@ -114,12 +114,23 @@
 -- TODO!
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS team;
-DROP TABLE IF EXISTS studio;
+DROP TABLE IF EXISTS studios;
 -- Create new tables, according to your domain model
 -- TODO!
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+--_____STUDIOS TABLE____
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  studio_name TEXT
+);
+INSERT INTO studios (
+    studio_name
+) VALUES (
+    "Warner Bros"),
+    ("Kellogg Studio"
+);
 
 --______MOVIES TABLE_______
 CREATE TABLE movies (
@@ -127,26 +138,26 @@ CREATE TABLE movies (
   title TEXT,
   year_released INTEGER,
   mpaa_rating TEXT,
-  studio TEXT
+  studios_id INTEGER
 );
 INSERT INTO movies (
     title,
     year_released,
     mpaa_rating,
-    studio
+    studios_id
 ) VALUES (
     "Batman Begins",
-    "2005",
+    2005,
     "PG-13",
-    "Warner Bros"
+    1
 ), ("The Dark Knight",
-    "2008",
+    2008,
     "PG-13",
-    "Warner Bros"
+    1
 ), ("The Dark Knight Rises",
-    "2013",
+    2013,
     "PG-13",
-    "Warner Bros"
+    1
 );
 
 --______'CAST' aka TEAM TABLE_______
@@ -154,38 +165,36 @@ CREATE TABLE team (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   character_name TEXT,
   actor_real_name TEXT,
-  Movie_ID
+  movies_id INTEGER
 );
 INSERT INTO team (
     character_name,
-    actor_real_name
+    actor_real_name,
+    movies_id
 ) VALUES 
-    ("Bruce Wayne", "Christian Bale"),
-    ("Alfred", "Michael Caine"),
-    ("Ra's Al Ghul", "Liam Neeson"),
-    ("Rachel Dawes", "Katie Holmes"),
-    ("Rachel Dawes", "Maggie Gyllenhaal"),
+    ("Bruce Wayne", "Christian Bale",1),
+    ("Bruce Wayne", "Christian Bale",2),
+    ("Bruce Wayne", "Christian Bale",3),
+    ("Alfred", "Michael Caine",1),
+    ("Ra's Al Ghul", "Liam Neeson",1),
+    ("Rachel Dawes", "Katie Holmes",1),
+    ("Rachel Dawes", "Maggie Gyllenhaal",2),
     --??? How to differentiate the above? Movie_ID?
-    ("Commissioner Gordon", "Gary Oldman"),
-    ("Joker", "Heath Ledger"),
-    ("Bane", "Tom Hardy"),
-    ("John Blaake", "Joseph Gordon-Levitt"),
-    ("Selina Kyle", "Anne Hathaway"
+    ("Commissioner Gordon", "Gary Oldman",1),
+    ("Joker", "Heath Ledger",2),
+    ("Bane", "Tom Hardy",2),
+    ("John Blake", "Joseph Gordon-Levitt",2),
+    ("Selina Kyle", "Anne Hathaway",3
     ); 
 
---_____STUDIOS TABLE____
-CREATE TABLE studios (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  studio_name TEXT,
-);
-INSERT INTO studios (
-    studio_name
-) 
 
 
 -- Prints a header for the movies output
 .print "Movies"
-SELECT title, year_released,mpaa_rating, studio FROM movies;
+SELECT movies.title, movies.year_released, movies.mpaa_rating, studios.studio_name
+FROM movies
+INNER JOIN studios ON movies.id = movies.studios_id
+WHERE studio_name = "Warner Bros";
 .print ""
 
 -- The SQL statement for the movies output
@@ -206,3 +215,10 @@ SELECT title, year_released,mpaa_rating, studio FROM movies;
 
 -- The SQL statement for the cast output
 -- TODO!
+
+
+SELECT team.actor_real_name
+FROM team
+INNER JOIN movies ON movies.id = team.movies_id
+WHERE  title = "Batman Begins"
+AND character_name = "Bruce Wayne"; 
