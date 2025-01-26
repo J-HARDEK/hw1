@@ -113,7 +113,7 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS cast;
+DROP TABLE IF EXISTS team;
 DROP TABLE IF EXISTS studio;
 -- Create new tables, according to your domain model
 -- TODO!
@@ -148,23 +148,17 @@ INSERT INTO movies (
     "PG-13",
     "Warner Bros"
 );
-CREATE TABLE movies (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title TEXT,
-  year_released INTEGER,
-  mpaa_rating TEXT,
-  studio TEXT
-);
 
---______CAST TABLE_______
-CREATE TABLE cast (
+--______'CAST' aka TEAM TABLE_______
+CREATE TABLE team (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   character_name TEXT,
-  actor_real_name TEXT
+  actor_real_name TEXT,
+  Movie_ID
 );
-INSERT INTO cast (
+INSERT INTO team (
     character_name,
-    actor_real_name,
+    actor_real_name
 ) VALUES 
     ("Bruce Wayne", "Christian Bale"),
     ("Alfred", "Michael Caine"),
@@ -177,7 +171,16 @@ INSERT INTO cast (
     ("Bane", "Tom Hardy"),
     ("John Blaake", "Joseph Gordon-Levitt"),
     ("Selina Kyle", "Anne Hathaway"
-); 
+    ); 
+
+--_____STUDIOS TABLE____
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  studio_name TEXT,
+);
+INSERT INTO studios (
+    studio_name
+) 
 
 
 -- Prints a header for the movies output
