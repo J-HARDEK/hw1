@@ -144,6 +144,7 @@ CREATE TABLE movies (
   year_released INTEGER,
   mpaa_rating TEXT,
   studios_id INTEGER
+  team_id INTEGER
 );
 INSERT INTO movies (
     title,
@@ -151,20 +152,10 @@ INSERT INTO movies (
     mpaa_rating,
     studios_id
 ) VALUES (
-    "Batman Begins",
-    2005,
-    "PG-13",
-    1
-), ("The Dark Knight",
-    2008,
-    "PG-13",
-    1
-), ("The Dark Knight Rises",
-    2013,
-    "PG-13",
-    1
+    "Batman Begins", 2005, "PG-13", 1), 
+    ("The Dark Knight", 2008, "PG-13", 1), 
+    ("The Dark Knight Rises", 2013, "PG-13", 1
 );
-
 --______'CAST' aka TEAM TABLE_______
 CREATE TABLE team (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -176,9 +167,10 @@ INSERT INTO team (
     character_name,
     actor_real_name,
     movies_id
-) VALUES 
+) 
+VALUES (
 --Batman Begins
-    ("Bruce Wayne", "Christian Bale",1),
+    "Bruce Wayne", "Christian Bale",1),
     ("Alfred", "Michael Caine",1),
     ("Ra's Al Ghul", "Liam Neeson",1),
     ("Rachel Dawes", "Katie Holmes",1),
@@ -195,10 +187,9 @@ INSERT INTO team (
     ("Commissioner Gordon", "Gary Oldman",3),
     ("Bane", "Tom Hardy",3),
     ("John Blake", "Joseph Gordon-Levitt",3),
-    ("Selina Kyle", "Anne Hathaway",3)
+    ("Selina Kyle", "Anne Hathaway",3),
     ("Alfred", "Michael Caine",3),
-    ("Ra's Al Ghul", "Liam Neeson",3),
-); 
+    ("Ra's Al Ghul", "Liam Neeson",3); 
 
 -- The SQL statement for the movies output
 --TODO!
@@ -214,15 +205,24 @@ WHERE studio_name = "Warner Bros";
 .print ""
 .print "Top Cast"
 .print "========"
-.print ""
 -- The SQL statement for the cast output
 -- TODO!
 SELECT movies.title, team.actor_real_name, team.character_name
-FROM team
-INNER JOIN movies ON movies.id = team.movies_id
-ORDER BY movies.year_released DESC
-LIMIT 5; ;
-
+FROM movies
+INNER JOIN team ON movies.id = team.movies_id
+WHERE title = "Batman Begins"
+LIMIT 5;
+SELECT movies.title, team.actor_real_name, team.character_name
+FROM movies
+INNER JOIN team ON movies.id = team.movies_id
+WHERE title = "The Dark Knight"
+LIMIT 5;
+SELECT movies.title, team.actor_real_name, team.character_name
+FROM movies
+INNER JOIN team ON movies.id = team.movies_id
+WHERE title = "The Dark Knight Rises"
+LIMIT 5;
+.print ""
 
 -- - As a guest, I want to see a list of movies with the title, year released,
 --   MPAA rating, and studio information.
