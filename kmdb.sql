@@ -123,13 +123,18 @@ DROP TABLE IF EXISTS studios;
 --_____STUDIOS TABLE____
 CREATE TABLE studios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  studio_name TEXT
+  studio_name TEXT,
+  movies_id INTEGER
 );
 INSERT INTO studios (
-    studio_name
+    studio_name,
+    movies_id
 ) VALUES (
-    "Warner Bros"),
-    ("Kellogg Studio"
+    "Warner Bros", 1),
+    ("Warner Bros", 2),
+    ("Warner Bros", 3),
+--Test for if other studio in list
+    ("Kellogg Studio",4
 );
 
 --______MOVIES TABLE_______
@@ -172,53 +177,56 @@ INSERT INTO team (
     actor_real_name,
     movies_id
 ) VALUES 
+--Batman Begins
     ("Bruce Wayne", "Christian Bale",1),
-    ("Bruce Wayne", "Christian Bale",2),
-    ("Bruce Wayne", "Christian Bale",3),
     ("Alfred", "Michael Caine",1),
     ("Ra's Al Ghul", "Liam Neeson",1),
     ("Rachel Dawes", "Katie Holmes",1),
-    ("Rachel Dawes", "Maggie Gyllenhaal",2),
-    --??? How to differentiate the above? Movie_ID?
     ("Commissioner Gordon", "Gary Oldman",1),
+--The Dark Knight
+    ("Bruce Wayne", "Christian Bale",2),
     ("Joker", "Heath Ledger",2),
-    ("Bane", "Tom Hardy",2),
-    ("John Blake", "Joseph Gordon-Levitt",2),
-    ("Selina Kyle", "Anne Hathaway",3
-    ); 
-
-
-
--- Prints a header for the movies output
-.print "Movies"
-SELECT movies.title, movies.year_released, movies.mpaa_rating, studios.studio_name
-FROM movies
-INNER JOIN studios ON movies.id = movies.studios_id
-WHERE studio_name = "Warner Bros";
-.print ""
+    ("Harvey Dent", "Aaron Eckhart",2),
+    ("Alfred", "Michael Caine",2),
+    ("Rachel Dawes", "Maggie Gyllenhaal",2),
+    ("Commissioner Gordon", "Gary Oldman",2),
+--The Dark Knight Rises
+    ("Bruce Wayne", "Christian Bale",3),
+    ("Commissioner Gordon", "Gary Oldman",3),
+    ("Bane", "Tom Hardy",3),
+    ("John Blake", "Joseph Gordon-Levitt",3),
+    ("Selina Kyle", "Anne Hathaway",3)
+    ("Alfred", "Michael Caine",3),
+    ("Ra's Al Ghul", "Liam Neeson",3),
+); 
 
 -- The SQL statement for the movies output
--- TODO!
---Into the terminal:
---Type: sqlite3 
---Press Enter
---Then Type: .read kmdb.sql 
---Press Enter
---Ta-Da!
+--TODO!
+.print "Movies"
+.print "========"
+SELECT movies.title, movies.year_released, movies.mpaa_rating, studios.studio_name
+FROM movies
+INNER JOIN studios ON movies.id = studios.movies_id
+WHERE studio_name = "Warner Bros";
+.print ""
 
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
-
-
 -- The SQL statement for the cast output
 -- TODO!
-
-
-SELECT team.actor_real_name
+SELECT movies.title, team.actor_real_name, team.character_name
 FROM team
 INNER JOIN movies ON movies.id = team.movies_id
-WHERE  title = "Batman Begins"
-AND character_name = "Bruce Wayne"; 
+ORDER BY movies.year_released DESC
+LIMIT 5; ;
+
+
+-- - As a guest, I want to see a list of movies with the title, year released,
+--   MPAA rating, and studio information.
+-- - As a guest, I want to see the movies which a single studio has produced.
+-- - As a guest, I want to see each movie's cast including each actor's
+--   name and the name of the character they portray.
+-- - As a guest, I want to see the movies which a single actor has acted in.
