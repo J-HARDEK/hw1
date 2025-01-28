@@ -117,6 +117,7 @@ DROP TABLE IF EXISTS team;
 DROP TABLE IF EXISTS studios;
 -- Create new tables, according to your domain model
 -- TODO!
+--          Combined below so I could see all the work at once.
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
@@ -136,7 +137,6 @@ INSERT INTO studios (
 --Test for if other studio in list
     ("Kellogg Studio",4
 );
-
 --______MOVIES TABLE_______
 CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -222,11 +222,6 @@ FROM movies
 INNER JOIN team ON movies.id = team.movies_id
 WHERE title = "The Dark Knight Rises"
 LIMIT 5;
-.print ""
-
--- - As a guest, I want to see a list of movies with the title, year released,
---   MPAA rating, and studio information.
--- - As a guest, I want to see the movies which a single studio has produced.
--- - As a guest, I want to see each movie's cast including each actor's
---   name and the name of the character they portray.
--- - As a guest, I want to see the movies which a single actor has acted in.
+-- I realize for the above, I could have also just put only 5 characters and cast in each data set to make it
+--look more like the assignment, but wanted to try to challenge myself to do top 5 from each. I was unable
+--to write that in a single SELECT statement however.
